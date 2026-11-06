@@ -1,0 +1,178 @@
+:root {
+  --bg: #eef2f8;
+  --card: #ffffff;
+  --text: #1c2233;
+  --muted: #7a8296;
+  --border: #b9c0d0;
+  --blue: #dbe5ff;
+  --blue-border: #8aa4f0;
+  --green: #b8f0c2;
+  --red: #ffb9b9;
+  --yellow: #ffe58f;
+  --accent: #4f6bed;
+  --cell: 36px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 32px 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+#root { max-width: 1050px; margin: 0 auto; }
+
+.crossword {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 30px rgba(30, 40, 80, 0.1);
+}
+
+.crossword h2 { margin: 0 0 20px; font-size: 24px; }
+
+.crossword__layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* ---------- plansza ---------- */
+.crossword__layout > div:first-child {
+  flex: 0 0 auto;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 2px;
+}
+
+.grid {
+  display: grid;
+  gap: 3px;
+  width: max-content;
+}
+
+.cell {
+  position: relative;
+  width: var(--cell);
+  height: var(--cell);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: #fff;
+  overflow: hidden;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.cell input {
+  width: 100%;
+  height: 100%;
+  padding: 8px 0 0;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text);
+  text-transform: uppercase;
+  caret-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.cell__number {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cell--highlight { background: var(--blue); border-color: var(--blue-border); }
+.cell--correct   { background: var(--green); border-color: #5cc873; }
+.cell--wrong     { background: var(--red); border-color: #e57373; }
+.cell--active    { background: var(--yellow); border-color: #f0b400; box-shadow: inset 0 0 0 1px #f0b400; }
+
+/* ---------- przyciski ---------- */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.controls button {
+  padding: 8px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.05s;
+}
+
+.controls button:hover { background: #f3f6ff; border-color: var(--accent); }
+.controls button:active { transform: translateY(1px); }
+.controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.counter {
+  margin-left: auto;
+  padding: 4px 10px;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  background: #eef1ff;
+  border-radius: 999px;
+}
+
+/* ---------- definicje ---------- */
+.clue-list { flex: 1; min-width: 260px; max-width: 360px; }
+
+.clue-list h3 {
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  font-size: 17px;
+  border-bottom: 2px solid var(--blue);
+}
+
+.clue-list h3:not(:first-child) { margin-top: 22px; }
+
+.clues { list-style: none; margin: 0; padding: 0; }
+
+.clue {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.4;
+  color: var(--text);
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.clue:hover { background: #f1f4fb; }
+.clue:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.clue--active, .clue--active:hover { background: var(--yellow); }
+.clue__len { color: var(--muted); }
+
+/* ---------- mobile ---------- */
+@media (max-width: 900px) {
+  :root { --cell: 30px; }
+  .crossword { padding: 18px; }
+  .crossword__layout { gap: 24px; }
+  .cell input { font-size: 16px; padding-top: 6px; }
+  .clue-list { max-width: none; }
+}

@@ -10,8 +10,8 @@ export default function Crossword({ words = WORDS }) {
   const { rows, cols } = useMemo(() => getGridSize(cells), [cells]);
   const total = Object.keys(cells).length;
 
-  const [letters, setLetters] = useState({});   // { 'r-c': 'A' }
-  const [results, setResults] = useState({});   // { 'r-c': 'correct' | 'wrong' }
+  const [letters, setLetters] = useState({});
+  const [results, setResults] = useState({});
   const [activeWordId, setActiveWordId] = useState(null);
   const [activeKey, setActiveKey] = useState(null);
   const inputRefs = useRef({});
@@ -24,13 +24,12 @@ export default function Crossword({ words = WORDS }) {
 
   const handleFocus = (key) => {
     setActiveKey(key);
-    // jeśli bieżące hasło nie zawiera tego pola, wybieramy pierwsze hasło przechodzące przez pole
     if (!activeKeys.includes(key)) setActiveWordId(cells[key].wordIds[0]);
   };
 
   const handleChange = (key, raw) => {
     const letter = sanitizeLetter(raw);
-    if (raw !== '' && letter === '') return; // cyfra / znak specjalny -> ignorujemy
+    if (raw !== '' && letter === '') return;
 
     setLetters((prev) => {
       const next = { ...prev };
@@ -38,14 +37,12 @@ export default function Crossword({ words = WORDS }) {
       else delete next[key];
       return next;
     });
-    // edycja pola kasuje jego podświetlenie z "Sprawdź"
     setResults((prev) => {
       if (!prev[key]) return prev;
       const { [key]: _removed, ...rest } = prev;
       return rest;
     });
 
-    // automatyczny przeskok do następnego pola hasła
     if (letter) {
       const idx = activeKeys.indexOf(key);
       if (idx >= 0 && idx < activeKeys.length - 1) focusCell(activeKeys[idx + 1]);

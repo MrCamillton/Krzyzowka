@@ -3,9 +3,9 @@ export default function Cell({
   onChange, onFocus, onKeyDown, inputRef,
 }) {
   const classes = ['cell'];
-  if (highlighted) classes.push('cell--highlight'); // niebieski
-  if (status) classes.push(`cell--${status}`);      // correct (zielony) / wrong (czerwony)
-  if (active) classes.push('cell--active');         // żółty (kursor)
+  if (highlighted) classes.push('cell--highlight');
+  if (status) classes.push(`cell--${status}`);
+  if (active) classes.push('cell--active');
 
   return (
     <div

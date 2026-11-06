@@ -1,4 +1,3 @@
-// direction: 'across' (poziomo) | 'down' (pionowo); row/col liczone od 0
 export const WORDS = [
   { id: 1, answer: 'FUNKCJA', clue: 'Wydzielony, wywoływalny fragment kodu', direction: 'across', row: 0, col: 3 },
   { id: 2, answer: 'KOMPILATOR', clue: 'Program tłumaczący kod źródłowy na kod maszynowy', direction: 'down', row: 0, col: 6 },
